@@ -5,7 +5,6 @@ Module Module2
     Public choice As String
 
     Private oApp As Outlook.Application
-    'Private exportData As List(Of IList(Of Object)) = New List(Of IList(Of Object))
 
     ' imports contacts from emails from a folder
     ' searches for the folder with FindInFolders()
