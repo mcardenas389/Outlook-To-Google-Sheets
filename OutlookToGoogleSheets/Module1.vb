@@ -26,14 +26,36 @@ Module Module1
 
     ' runs the macro in Module2 and calls the functions necessary to upload data to Google Sheets
     Public Sub RunAndUpload()
-        Dim oApp As Outlook.Application = CheckForOutlook()
+        Try
+            RunMacro()
+            Upload()
+        Catch ex As Exception
+            MsgBox(ex.Message, vbExclamation, "Error")
+            Exit Sub
+        End Try
+    End Sub
+
+    ' checks if Outlook is running and then calls the macro defined in Module2
+    ' throws an exception if Outlook is not found
+    Public Sub RunMacro()
+        'Dim oApp As Outlook.Application = CheckForOutlook()
+        Dim oApp As Outlook.Application = Nothing
 
         If oApp Is Nothing Then
-            MsgBox("Outlook could not be found!", vbExclamation, "Error")
+            Throw New Exception("Outlook could not be found!")
             Exit Sub
         End If
 
         BulkImportContacts(oApp)
+    End Sub
+
+    ''''''''''change msgbox to an exception''''''''''
+    Public Sub Upload()
+        If IsEmpty() Then
+            MsgBox("There is currently no data to upload." & vbNewLine &
+                "Please run the macro or load data from a file.", vbInformation, "No Data")
+            Exit Sub
+        End If
 
         Dim service = AuthorizeGoogleApp()
         Dim range As String = GetRange(service)
@@ -46,9 +68,13 @@ Module Module1
             .Values = exportData
         }
 
-        UpdateGoogleSheetInBatch(requestbody, spreadsheetId, range, service)
+        UpdateGoogleSheetInBatch(requestbody, range, service)
 
         MsgBox("Process Completed!")
+    End Sub
+
+    Public Sub Preview()
+
     End Sub
 
     ' stores data into exportData
@@ -139,7 +165,13 @@ Module Module1
         Dim obj As IList(Of Object) = New List(Of Object) From {
             "Column 1",
             "Column 2",
-            "Column 3"
+            "Column 3",
+            "Column 4",
+            "Column 5",
+            "Column 6",
+            "Column 7",
+            "Column 8",
+            "Column 9"
         }
 
         objNewRecords.Add(obj)
@@ -148,7 +180,7 @@ Module Module1
     End Function
 
     ' creates the request and submits the data to the
-    Private Sub UpdateGoogleSheetInBatch(requestBody As Data.ValueRange, spreadsheetId As String, range As String, service As SheetsService)
+    Private Sub UpdateGoogleSheetInBatch(requestBody As Data.ValueRange, range As String, service As SheetsService)
         Dim request As SpreadsheetsResource.ValuesResource.AppendRequest = service.Spreadsheets.Values.Append(requestBody, spreadsheetId, range)
         request.InsertDataOption = SpreadsheetsResource.ValuesResource.AppendRequest.InsertDataOptionEnum.INSERTROWS
         request.ValueInputOption = SpreadsheetsResource.ValuesResource.AppendRequest.ValueInputOptionEnum.USERENTERED
