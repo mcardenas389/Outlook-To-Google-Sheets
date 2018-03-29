@@ -1,22 +1,30 @@
-﻿Public Class Form1
+﻿'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+' Outlook to Google Sheets
+' Created by Michael Cardenas 2018
+' 
+' This application is used to gather contact information from e-mails 
+' and store them as vcards within Outlook. The data that is gathered 
+' in this process can also be submitted to a Google Sheets file 
+' and/or saved as an Excel spreadhsheet.
+'
+'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
+Public Class Form1
+    Private errorHandler As ErrorHandler = New ErrorHandler()
+
     Private Sub RunAndUpload_Click(sender As Object, e As EventArgs) Handles RunAndUpload.Click
-        Module1.RunAndUpload()
+        errorHandler.RunAndUpload()
     End Sub
 
     Private Sub RunMacro_Click(sender As Object, e As EventArgs) Handles RunMacro.Click
-        Try
-            Module1.RunMacro()
-        Catch ex As Exception
-            MsgBox(ex.Message, vbExclamation, "Error")
-        End Try
+        errorHandler.RunMacro()
     End Sub
 
     Private Sub Upload_Click(sender As Object, e As EventArgs) Handles Upload.Click
-        Module1.Upload()
+        errorHandler.Upload()
     End Sub
 
     Private Sub Preview_Click(sender As Object, e As EventArgs) Handles Preview.Click
-        'Module1.Preview()
         Form2.Show()
     End Sub
 

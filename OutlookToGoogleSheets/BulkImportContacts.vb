@@ -1,15 +1,51 @@
 ﻿Imports Outlook = Microsoft.Office.Interop.Outlook
 
-Module Module2
+Public Class BulkImportContacts
     ' used for ComboBox1 in UserForm1
-    Public choice As String
-
+    Private choice As String
     Private oApp As Outlook.Application
+
+    Public Sub New()
+        ' enter code here
+    End Sub
+
+    ' checks if Outlook is installed on the machine.
+    ' returns Nothing if it is not.
+    ' returns an instance of Outlook if it is.
+    Private Function CheckForOutlook()
+        Dim oApp As Outlook.Application = Nothing
+
+        ' find Outlook in its default path
+        Dim key As Microsoft.Win32.RegistryKey = Microsoft.Win32.Registry.LocalMachine.OpenSubKey(
+            "Software\\microsoft\\windows\\currentversion\\app paths\\OUTLOOK.EXE")
+
+        If key Is Nothing Then
+            Return oApp
+        End If
+
+        Dim exePath As String = key.GetValue("Path")
+
+        ' check if Outlook is already running
+        Dim processList() As Process = Process.GetProcessesByName("OUTLOOK")
+
+        ' if Outlook is not running, launch it and return the instance
+        ' if Outlook is running, get and return its instance
+        If Not exePath Is Nothing And processList.Length = 0 Then
+            oApp = CreateObject("Outlook.Application")
+            Process.Start(oApp.Name)
+        ElseIf exePath Is Nothing Then
+            MsgBox("Outlook is not installed on this machine.", vbExclamation, "Outlook Not Found")
+        Else
+            oApp = System.Runtime.InteropServices.Marshal.GetActiveObject("Outlook.Application")
+        End If
+
+        Return oApp
+    End Function
 
     ' imports contacts from emails from a folder
     ' searches for the folder with FindInFolders()
     ' calls ImportToContacts() when folder is found
-    Sub BulkImportContacts(newOApp As Outlook.Application)
+    Public Sub Run(newOApp As Outlook.Application)
         oApp = newOApp
 
         Dim name As String
@@ -557,4 +593,4 @@ ErrorHandler:
             StateAbbreviation = "WY"
         End If
     End Function
-End Module
+End Class
