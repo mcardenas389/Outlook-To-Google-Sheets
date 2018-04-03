@@ -1,4 +1,12 @@
-﻿Imports Google.Apis.Auth.OAuth2
+﻿'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+' GoogleSheetsHandler.vb
+' Created by Michael Cardenas 2018
+' 
+' This class handles the functionality required to communicated with
+' Google Sheets.
+'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
+Imports Google.Apis.Auth.OAuth2
 Imports Google.Apis.Sheets.v4
 Imports Google.Apis.Services
 Imports Google.Apis.Util.Store
@@ -10,27 +18,20 @@ Imports Data = Google.Apis.Sheets.v4.Data
 Public Class GoogleSheetsHandler
     Private ApplicationName As String
     Private spreadsheetId As String
-    Private exportData As List(Of IList(Of Object))
 
     ' constructor
     Public Sub New()
         ApplicationName = "Outlook to Google Sheets"
-        spreadsheetId = "insert spreadsheet ID here"
-        exportData = New List(Of IList(Of Object))
+        spreadsheetId = "1TYe16MtY_qfOszj5YaPQz0XLAgZRM87KL9lvreaKJAw"
     End Sub
-
-    ' appends the export data list
-    Public Sub AppendExportData(dataBlock As List(Of Object))
-        exportData.Add(dataBlock)
-    End Sub
-
-    ' checks if exportData is empty
-    Public Function IsEmpty()
-        Return exportData.Count = 0
-    End Function
 
     ' initializes communications with Google Sheets and submits the data
-    Public Sub SubmitToGoogleSheets()
+    Public Sub SubmitToGoogleSheets(exportData As IList(Of IList(Of Object)))
+        If exportData.Count = 0 Then
+            Throw New Exception("There is currently no data to upload." & vbNewLine &
+                "Please run the macro or load data from a file.")
+        End If
+
         Dim service = AuthorizeGoogleApp()
         Dim range As String = GetRange(service)
 
@@ -59,6 +60,7 @@ Public Class GoogleSheetsHandler
             credential = GoogleWebAuthorizationBroker.AuthorizeAsync(GoogleClientSecrets.Load(stream).Secrets,
                 Scopes, "user", CancellationToken.None, New FileDataStore(credPath, True)).Result
 
+            ' save to log file
             'Console.WriteLine(Convert.ToString("Credential file saved to: ") & credPath)
         End Using
 
@@ -74,13 +76,13 @@ Public Class GoogleSheetsHandler
     ' finds the range where new entries can be submitted to the Google Sheet
     Private Function GetRange(service As SheetsService)
         'Define request parameters.
-        Dim range As String = "Roster!A:A"
+        Dim range As String = "Sheet1!A:A"
         Dim getRequest As SpreadsheetsResource.ValuesResource.GetRequest = service.Spreadsheets.Values.Get(spreadsheetId, range)
         Dim getResponse As Data.ValueRange = getRequest.Execute()
         Dim getValues As IList(Of IList(Of [Object])) = getResponse.Values
         Dim currentCount As Integer = getValues.Count() + 1
 
-        Return "Roster!A" & currentCount & ":A"
+        Return "Sheet1!A" & currentCount & ":A"
     End Function
 
     ' used to generate data for testing purposes
@@ -96,8 +98,6 @@ Public Class GoogleSheetsHandler
             "Column 8",
             "Column 9"
         }
-
-        AppendExportData(obj)
     End Sub
 
     ' creates the request and submits the data to the

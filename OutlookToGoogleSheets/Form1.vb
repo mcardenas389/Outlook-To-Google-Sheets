@@ -6,7 +6,6 @@
 ' and store them as vcards within Outlook. The data that is gathered 
 ' in this process can also be submitted to a Google Sheets file 
 ' and/or saved as an Excel spreadhsheet.
-'
 '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 
 Public Class Form1
@@ -25,7 +24,7 @@ Public Class Form1
     End Sub
 
     Private Sub Preview_Click(sender As Object, e As EventArgs) Handles Preview.Click
-        Form2.Show()
+        Preview.Show()
     End Sub
 
     Private Sub UploadFromFile_Click(sender As Object, e As EventArgs) Handles UploadFromFile.Click
