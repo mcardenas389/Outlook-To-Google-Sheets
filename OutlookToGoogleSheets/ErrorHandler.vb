@@ -37,8 +37,4 @@
             MsgBox(ex.Message, vbInformation, "Warning!")
         End Try
     End Sub
-
-    Public Sub Preview()
-
-    End Sub
 End Class

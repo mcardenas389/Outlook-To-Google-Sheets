@@ -114,6 +114,12 @@
   <ItemGroup>
     <Compile Include="BulkImportContacts.vb" />
     <Compile Include="ErrorHandler.vb" />
+    <Compile Include="FormNew.Designer.vb">
+      <DependentUpon>FormNew.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FormNew.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="GoogleSheetsHandler.vb" />
     <Compile Include="Form1.vb">
       <SubType>Form</SubType>
@@ -147,6 +153,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormNew.resx">
+      <DependentUpon>FormNew.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="My Project\Resources.resx">
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>

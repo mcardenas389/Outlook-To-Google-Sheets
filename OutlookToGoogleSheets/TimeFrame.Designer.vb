@@ -30,7 +30,10 @@ Partial Class TimeFrame
         '
         'TimeFrames
         '
+        Me.TimeFrames.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.TimeFrames.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
         Me.TimeFrames.FormattingEnabled = True
+        Me.TimeFrames.Items.AddRange(New Object() {"Today", "Yesterday", "A week", "Two weeks", "30 days"})
         Me.TimeFrames.Location = New System.Drawing.Point(12, 35)
         Me.TimeFrames.Name = "TimeFrames"
         Me.TimeFrames.Size = New System.Drawing.Size(121, 21)
@@ -67,7 +70,7 @@ Partial Class TimeFrame
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(245, 73)
+        Me.ClientSize = New System.Drawing.Size(234, 64)
         Me.Controls.Add(Me.Cancel)
         Me.Controls.Add(Me.OK)
         Me.Controls.Add(Me.Label1)
@@ -78,9 +81,8 @@ Partial Class TimeFrame
         Me.PerformLayout()
 
     End Sub
-
-    Friend WithEvents TimeFrames As ComboBox
     Friend WithEvents Label1 As Label
     Friend WithEvents OK As Button
     Friend WithEvents Cancel As Button
+    Friend WithEvents TimeFrames As ComboBox
 End Class

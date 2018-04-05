@@ -8,7 +8,7 @@
 ' and/or saved as an Excel spreadhsheet.
 '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 
-Public Class Form1
+Public Class FormNew
     Private errorHandler As ErrorHandler = New ErrorHandler()
 
     Private Sub RunAndUpload_Click(sender As Object, e As EventArgs) Handles RunAndUpload.Click
@@ -21,25 +21,6 @@ Public Class Form1
 
     Private Sub Upload_Click(sender As Object, e As EventArgs) Handles Upload.Click
         errorHandler.Upload()
-    End Sub
-
-    Private Sub Preview_Click(sender As Object, e As EventArgs) Handles Preview.Click
-        Preview.Show()
-    End Sub
-
-    Private Sub UploadFromFile_Click(sender As Object, e As EventArgs) Handles UploadFromFile.Click
-        Dim fd As OpenFileDialog = New OpenFileDialog()
-        Dim strFileName As String
-
-        fd.Title = "Open File Dialog"
-        fd.InitialDirectory = "C:\"
-        fd.Filter = "All files (*.*)|*.*|All files (*.*)|*.*"
-        fd.FilterIndex = 2
-        fd.RestoreDirectory = True
-
-        If fd.ShowDialog() = DialogResult.OK Then
-            strFileName = fd.FileName
-        End If
     End Sub
 
     Private Sub Quit_Click(sender As Object, e As EventArgs) Handles Quit.Click

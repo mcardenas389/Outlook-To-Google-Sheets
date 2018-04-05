@@ -9,14 +9,11 @@
 Imports Outlook = Microsoft.Office.Interop.Outlook
 
 Public Class BulkImportContacts
-    ' used for ComboBox1 in UserForm1
-    Private choice As String
     Private oApp As Outlook.Application
     Private exportData As List(Of IList(Of Object))
     Private gSheets As GoogleSheetsHandler
 
     Public Sub New()
-        choice = ""
         exportData = New List(Of IList(Of Object))
         gSheets = New GoogleSheetsHandler()
     End Sub
@@ -126,6 +123,7 @@ Public Class BulkImportContacts
     Private Sub ImportToContacts(FoundFolder As Outlook.Folder)
         Dim Mail As Outlook.MailItem
         Dim MyItems As Outlook.Items
+        Dim choice As String = ""
         Dim constantContact As String = "donotreply_eventspot@constantcontact.com"
         Dim paypal As String = "service@paypal.com"
         Dim filter As String
@@ -133,7 +131,15 @@ Public Class BulkImportContacts
 
         On Error GoTo ErrorHandler
 
-        TimeFrame.Show()
+        Dim timeFrame As TimeFrame = New TimeFrame()
+
+        Do While choice Is ""
+            If timeFrame.ShowDialog() = System.Windows.Forms.DialogResult.OK Then
+                choice = timeFrame.TimeFrames.Text
+            Else
+                Exit Sub
+            End If
+        Loop
 
         Dim days As Integer = 0
 
@@ -146,12 +152,11 @@ Public Class BulkImportContacts
             days = 14
         ElseIf choice = "30 days" Then
             days = 30
-        ElseIf choice = "Cancel" Then
-            Exit Sub
         End If
 
-        'filter = "[Received] >= " & Chr(34) & FormatDateTime(DateTime.Today.AddDays(-38).Date, vbShortDate) & Chr(34)
         filter = "[Received] >= " & Chr(34) & New DateTime(2017, 8, 30) & Chr(34)
+        'filter = "[Received] >= " & Chr(34) & DateTime.Today.AddDays(-days) & Chr(34)
+
         MyItems = FoundFolder.Items.Restrict(filter)
 
         For Each Mail In MyItems
@@ -177,7 +182,7 @@ Public Class BulkImportContacts
         Dim msg As String = "Process was successful!" & vbNewLine & vbNewLine &
             "Read " & counter & " e-mails."
 
-        MsgBox(msg)
+        MsgBox(msg, , "Success!")
 
 ErrorHandler:
         If Err.Number <> 0 Then
@@ -440,6 +445,7 @@ ErrorHandler:
         Contact = Nothing
     End Function
 
+    ' saves contacts into the default contact folder of Outlook
     Private Sub SaveContact(Contact As Outlook.ContactItem, messageArray() As String)
         ' check to see if an empty object was passed through
         If Not Contact Is Nothing Then
