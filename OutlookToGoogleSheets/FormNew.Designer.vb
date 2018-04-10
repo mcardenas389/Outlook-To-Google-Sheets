@@ -24,9 +24,9 @@ Partial Class FormNew
     Private Sub InitializeComponent()
         Me.RunAndUpload = New System.Windows.Forms.Button()
         Me.Quit = New System.Windows.Forms.Button()
-        Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         Me.RunMacro = New System.Windows.Forms.Button()
         Me.Upload = New System.Windows.Forms.Button()
+        Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -48,15 +48,6 @@ Partial Class FormNew
         Me.Quit.Text = "&Quit"
         Me.Quit.UseVisualStyleBackColor = True
         '
-        'PictureBox1
-        '
-        Me.PictureBox1.Image = Global.OutlookToGoogleSheets.My.Resources.Resources.O2GS_Logo
-        Me.PictureBox1.Location = New System.Drawing.Point(12, 12)
-        Me.PictureBox1.Name = "PictureBox1"
-        Me.PictureBox1.Size = New System.Drawing.Size(170, 170)
-        Me.PictureBox1.TabIndex = 2
-        Me.PictureBox1.TabStop = False
-        '
         'RunMacro
         '
         Me.RunMacro.Location = New System.Drawing.Point(225, 59)
@@ -74,6 +65,15 @@ Partial Class FormNew
         Me.Upload.TabIndex = 4
         Me.Upload.Text = "&Upload"
         Me.Upload.UseVisualStyleBackColor = True
+        '
+        'PictureBox1
+        '
+        Me.PictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None
+        Me.PictureBox1.Location = New System.Drawing.Point(12, 12)
+        Me.PictureBox1.Name = "PictureBox1"
+        Me.PictureBox1.Size = New System.Drawing.Size(170, 170)
+        Me.PictureBox1.TabIndex = 2
+        Me.PictureBox1.TabStop = False
         '
         'FormNew
         '

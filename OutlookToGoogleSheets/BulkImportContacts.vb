@@ -18,6 +18,7 @@ Public Class BulkImportContacts
         gSheets = New GoogleSheetsHandler()
     End Sub
 
+    ' send upload data to the Google sheet
     Public Sub Upload()
         gSheets.SubmitToGoogleSheets(exportData)
     End Sub

@@ -11,7 +11,6 @@
         Try
             bulkImport.Run()
             bulkImport.Upload()
-
             MsgBox("Process Completed!")
         Catch ex As Exception
             MsgBox(ex.Message, vbInformation, "Warning!")
@@ -31,7 +30,6 @@
     Public Sub Upload()
         Try
             bulkImport.Upload()
-
             MsgBox("Process Completed!")
         Catch ex As Exception
             MsgBox(ex.Message, vbInformation, "Warning!")
