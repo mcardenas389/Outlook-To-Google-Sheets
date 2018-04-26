@@ -1,6 +1,6 @@
 ﻿'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 ' GoogleSheetsHandler.vb
-' Created by Michael Cardenas 2018
+' Created by Michael Cardenas ©2018
 ' 
 ' This class handles the functionality required to communicated with
 ' Google Sheets.
@@ -29,7 +29,7 @@ Public Class GoogleSheetsHandler
     Public Sub SubmitToGoogleSheets(exportData As IList(Of IList(Of Object)))
         If exportData.Count = 0 Then
             Throw New Exception("There is currently no data to upload." & vbNewLine &
-                "Please run the macro or load data from a file.")
+                "Please run the macro first.")
         End If
 
         Dim service = AuthorizeGoogleApp()

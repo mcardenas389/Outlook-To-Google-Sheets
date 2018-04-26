@@ -22,13 +22,14 @@ Partial Class Form1
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Form1))
         Me.RunAndUpload = New System.Windows.Forms.Button()
         Me.Quit = New System.Windows.Forms.Button()
-        Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         Me.RunMacro = New System.Windows.Forms.Button()
         Me.Upload = New System.Windows.Forms.Button()
         Me.UploadFromFile = New System.Windows.Forms.Button()
         Me.Preview = New System.Windows.Forms.Button()
+        Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -49,15 +50,6 @@ Partial Class Form1
         Me.Quit.TabIndex = 1
         Me.Quit.Text = "&Quit"
         Me.Quit.UseVisualStyleBackColor = True
-        '
-        'PictureBox1
-        '
-        Me.PictureBox1.Image = Global.OutlookToGoogleSheets.My.Resources.Resources.O2GS_Logo
-        Me.PictureBox1.Location = New System.Drawing.Point(12, 12)
-        Me.PictureBox1.Name = "PictureBox1"
-        Me.PictureBox1.Size = New System.Drawing.Size(170, 170)
-        Me.PictureBox1.TabIndex = 2
-        Me.PictureBox1.TabStop = False
         '
         'RunMacro
         '
@@ -95,16 +87,25 @@ Partial Class Form1
         Me.Preview.Text = "&Preview"
         Me.Preview.UseVisualStyleBackColor = True
         '
+        'PictureBox1
+        '
+        Me.PictureBox1.Image = CType(resources.GetObject("PictureBox1.Image"), System.Drawing.Image)
+        Me.PictureBox1.Location = New System.Drawing.Point(12, 12)
+        Me.PictureBox1.Name = "PictureBox1"
+        Me.PictureBox1.Size = New System.Drawing.Size(170, 170)
+        Me.PictureBox1.TabIndex = 7
+        Me.PictureBox1.TabStop = False
+        '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(341, 194)
+        Me.Controls.Add(Me.PictureBox1)
         Me.Controls.Add(Me.Preview)
         Me.Controls.Add(Me.UploadFromFile)
         Me.Controls.Add(Me.Upload)
         Me.Controls.Add(Me.RunMacro)
-        Me.Controls.Add(Me.PictureBox1)
         Me.Controls.Add(Me.Quit)
         Me.Controls.Add(Me.RunAndUpload)
         Me.Name = "Form1"
@@ -116,9 +117,9 @@ Partial Class Form1
 
     Friend WithEvents RunAndUpload As Button
     Friend WithEvents Quit As Button
-    Friend WithEvents PictureBox1 As PictureBox
     Friend WithEvents RunMacro As Button
     Friend WithEvents Upload As Button
     Friend WithEvents UploadFromFile As Button
     Friend WithEvents Preview As Button
+    Friend WithEvents PictureBox1 As PictureBox
 End Class

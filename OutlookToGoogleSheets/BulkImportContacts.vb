@@ -1,6 +1,6 @@
 ﻿'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 ' BulkImportContacts.vb
-' Created by Michael Cardenas 2018
+' Created by Michael Cardenas ©2018
 ' 
 ' This class handles getting the data from Outlook to save as contacts
 ' and also stores this information in a data structure.
@@ -9,8 +9,8 @@
 Imports Outlook = Microsoft.Office.Interop.Outlook
 
 Public Class BulkImportContacts
-    Private oApp As Outlook.Application
-    Private exportData As List(Of IList(Of Object))
+    Private oApp As Outlook.Application ' the current instance of Outlook
+    Private exportData As List(Of IList(Of Object)) ' a data structure for storing the upload payload
     Private gSheets As GoogleSheetsHandler
 
     Public Sub New()
@@ -33,21 +33,23 @@ Public Class BulkImportContacts
             Throw New Exception("Outlook could not be found!")
         End If
 
-        Dim name As String
-
         ''''''remove after testing''''''
-        Dim nSpace As Outlook.NameSpace = oApp.GetNamespace("MAPI")
-        Dim folder As Outlook.Folder = nSpace.Folders("ncscbint2@hunter.cuny.edu").Folders("Inbox").Folders("Test")
-        ImportToContacts(folder)
-        Exit Sub
+        'Dim nSpace As Outlook.NameSpace = oApp.GetNamespace("MAPI")
+        'Dim folder As Outlook.Folder = nSpace.Folders("ncscbint2@hunter.cuny.edu").Folders("Inbox").Folders("Test")
+        'ImportToContacts(folder)
+        'Exit Sub
+
+        Dim name As String
 
         ' if nothing is entered, exit out of macro
         name = InputBox("Enter ConstantContact folder name:", "Search Folder")
         If Len(Trim$(name)) = 0 Then Exit Sub
 
         ' find out if folder exists
+        Dim nSpace As Outlook.NameSpace = oApp.GetNamespace("MAPI")
+        Dim SearchFolder As Outlook.Folder = nSpace.Folders("nat_ctr@hunter.cuny.edu").Folders("Inbox")
         Dim FoundFolder As Outlook.Folder
-        FoundFolder = FindInFolders(oApp.Session.Folders, name)
+        FoundFolder = FindInFolders(SearchFolder, name)
 
         ' if folder is not found or is empty, do nothing
         ' if the folder is found and has items, call ImportToContacts()
@@ -155,8 +157,8 @@ Public Class BulkImportContacts
             days = 30
         End If
 
-        filter = "[Received] >= " & Chr(34) & New DateTime(2017, 8, 30) & Chr(34)
-        'filter = "[Received] >= " & Chr(34) & DateTime.Today.AddDays(-days) & Chr(34)
+        'filter = "[Received] >= " & Chr(34) & New DateTime(2017, 8, 30) & Chr(34)
+        filter = "[Received] >= " & Chr(34) & DateTime.Today.AddDays(-days) & Chr(34)
 
         MyItems = FoundFolder.Items.Restrict(filter)
 
@@ -318,28 +320,28 @@ ErrorHandler:
 
         ' clean up values and remove unwanted characters
         ' used on shared PC
-        Dim i As Integer
-        For i = 1 To 13
-            ' remove the " mark from the hyperlink
-            If i = 3 Or i = 4 Or i = 8 Then
-                splitArray = Split(messageArray(i), Chr(34))
-                messageArray(i) = splitArray(UBound(splitArray))
-            End If
-
-            ' remove the newline character and replace it with an empty string
-            messageArray(i) = Replace(messageArray(i), vbNewLine, "")
-        Next
-
-        splitArray = Split(messageArray(15), vbNewLine)
-        messageArray(15) = splitArray(6)
-
-        '' replace unwanted characters with an empty string
-        '' used on end user's PC
         'Dim i As Integer
-        'For i = 1 To UBound(messageArray)
+        'For i = 1 To 13
+        '    ' remove the " mark from the hyperlink
+        '    If i = 3 Or i = 4 Or i = 8 Then
+        '        splitArray = Split(messageArray(i), Chr(34))
+        '        messageArray(i) = splitArray(UBound(splitArray))
+        '    End If
+
+        '    ' remove the newline character and replace it with an empty string
         '    messageArray(i) = Replace(messageArray(i), vbNewLine, "")
-        '    messageArray(i) = Replace(messageArray(i), vbTab, "")
         'Next
+
+        'splitArray = Split(messageArray(15), vbNewLine)
+        'messageArray(15) = splitArray(6)
+
+        ' replace unwanted characters with an empty string
+        ' used on end user's PC
+        Dim i As Integer
+        For i = 1 To UBound(messageArray)
+            messageArray(i) = Replace(messageArray(i), vbNewLine, "")
+            messageArray(i) = Replace(messageArray(i), vbTab, "")
+        Next
 
         ' search for contacts after collecting the relevant data
         ContactItems = FindContacts(messageArray(1), messageArray(2))

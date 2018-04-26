@@ -1,4 +1,12 @@
-﻿Public Class ErrorHandler
+﻿'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+' ErrorHandler.vb
+' Created by Michael Cardenas ©2018
+' 
+' This class handles some of the exceptions that may be throw by the
+' other classes that it calls.
+'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
+Public Class ErrorHandler
     Private bulkImport As BulkImportContacts
 
     ' constructor

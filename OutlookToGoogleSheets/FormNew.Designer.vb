@@ -22,6 +22,7 @@ Partial Class FormNew
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FormNew))
         Me.RunAndUpload = New System.Windows.Forms.Button()
         Me.Quit = New System.Windows.Forms.Button()
         Me.RunMacro = New System.Windows.Forms.Button()
@@ -69,6 +70,7 @@ Partial Class FormNew
         'PictureBox1
         '
         Me.PictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None
+        Me.PictureBox1.Image = CType(resources.GetObject("PictureBox1.Image"), System.Drawing.Image)
         Me.PictureBox1.Location = New System.Drawing.Point(12, 12)
         Me.PictureBox1.Name = "PictureBox1"
         Me.PictureBox1.Size = New System.Drawing.Size(170, 170)

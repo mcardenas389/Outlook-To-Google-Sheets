@@ -1,6 +1,6 @@
 ﻿'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 ' Outlook to Google Sheets v1.0
-' Created by Michael Cardenas 2018
+' Created by Michael Cardenas ©2018
 ' 
 ' This application is used to gather contact information from e-mails 
 ' and store them as vcards within Outlook. The data that is gathered 
