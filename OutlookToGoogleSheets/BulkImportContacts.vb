@@ -18,6 +18,13 @@ Public Class BulkImportContacts
         gSheets = New GoogleSheetsHandler()
     End Sub
 
+    ' clears the data structure, exportData, if it contains any data
+    Public Sub ClearData()
+        If exportData.Count > 0 Then
+            exportData.Clear()
+        End If
+    End Sub
+
     ' send upload data to the Google sheet
     Public Sub Upload()
         gSheets.SubmitToGoogleSheets(exportData)
@@ -28,28 +35,21 @@ Public Class BulkImportContacts
     ' calls ImportToContacts() when folder is found
     Public Sub Run()
         oApp = CheckForOutlook()
+        ClearData()
 
         If oApp Is Nothing Then
             Throw New Exception("Outlook could not be found!")
         End If
 
-        ''''''remove after testing''''''
-        'Dim nSpace As Outlook.NameSpace = oApp.GetNamespace("MAPI")
-        'Dim folder As Outlook.Folder = nSpace.Folders("ncscbint2@hunter.cuny.edu").Folders("Inbox").Folders("Test")
-        'ImportToContacts(folder)
-        'Exit Sub
-
-        Dim name As String
-
         ' if nothing is entered, exit out of macro
-        name = InputBox("Enter ConstantContact folder name:", "Search Folder")
+        Dim name As String = InputBox("Enter ConstantContact folder name:", "Search Folder")
         If Len(Trim$(name)) = 0 Then Exit Sub
 
         ' find out if folder exists
         Dim nSpace As Outlook.NameSpace = oApp.GetNamespace("MAPI")
-        Dim SearchFolder As Outlook.Folder = nSpace.Folders("nat_ctr@hunter.cuny.edu").Folders("Inbox")
+        'Dim SearchFolder As Outlook.Folder = nSpace.Folders("nat_ctr@hunter.cuny.edu").Folders("Inbox")
         Dim FoundFolder As Outlook.Folder
-        FoundFolder = FindInFolders(SearchFolder, name)
+        FoundFolder = FindInFolders(oApp.Application.Session.Folders, name)
 
         ' if folder is not found or is empty, do nothing
         ' if the folder is found and has items, call ImportToContacts()

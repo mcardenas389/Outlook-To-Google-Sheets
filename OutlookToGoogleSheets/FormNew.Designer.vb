@@ -88,7 +88,7 @@ Partial Class FormNew
         Me.Controls.Add(Me.Quit)
         Me.Controls.Add(Me.RunAndUpload)
         Me.Name = "FormNew"
-        Me.Text = "Outlook to Google Sheets"
+        Me.Text = "Outlook to Google Sheets v1.0"
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 

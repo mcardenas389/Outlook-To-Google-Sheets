@@ -22,7 +22,7 @@ Public Class GoogleSheetsHandler
     ' constructor
     Public Sub New()
         ApplicationName = "Outlook to Google Sheets"
-        spreadsheetId = "1TYe16MtY_qfOszj5YaPQz0XLAgZRM87KL9lvreaKJAw"
+        spreadsheetId = "1PaS8cxkbd5o4R5n05Ye5rdaBRFfvpXZX5loYesCnkes"
     End Sub
 
     ' initializes communications with Google Sheets and submits the data
@@ -76,13 +76,13 @@ Public Class GoogleSheetsHandler
     ' finds the range where new entries can be submitted to the Google Sheet
     Private Function GetRange(service As SheetsService)
         'Define request parameters.
-        Dim range As String = "Sheet1!A:A"
+        Dim range As String = "Roster!A:A"
         Dim getRequest As SpreadsheetsResource.ValuesResource.GetRequest = service.Spreadsheets.Values.Get(spreadsheetId, range)
         Dim getResponse As Data.ValueRange = getRequest.Execute()
         Dim getValues As IList(Of IList(Of [Object])) = getResponse.Values
         Dim currentCount As Integer = getValues.Count() + 1
 
-        Return "Sheet1!A" & currentCount & ":A"
+        Return "Roster!A" & currentCount & ":A"
     End Function
 
     ' used to generate data for testing purposes
