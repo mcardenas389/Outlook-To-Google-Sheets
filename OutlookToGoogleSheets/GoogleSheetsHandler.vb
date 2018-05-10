@@ -27,10 +27,10 @@ Public Class GoogleSheetsHandler
 
     ' initializes communications with Google Sheets and submits the data
     Public Sub SubmitToGoogleSheets(exportData As IList(Of IList(Of Object)))
-        If exportData.Count = 0 Then
-            Throw New Exception("There is currently no data to upload." & vbNewLine &
-                "Please run the macro first.")
-        End If
+        'If exportData.Count = 0 Then
+        '    Throw New Exception("There is currently no data to upload." & vbNewLine &
+        '        "Please run the macro first.")
+        'End If
 
         Dim service = AuthorizeGoogleApp()
         Dim range As String = GetRange(service)
@@ -40,11 +40,29 @@ Public Class GoogleSheetsHandler
         Dim requestbody As Data.ValueRange = New Data.ValueRange With {
             .Range = range,
             .MajorDimension = "1",
-            .Values = exportData
+            .Values = BuildData() 'exportData
         }
 
         UpdateGoogleSheetInBatch(requestbody, range, service)
     End Sub
+
+    Private Function Init()
+        Dim fileReader As StreamReader = My.Computer.FileSystem.OpenTextFileReader("init.txt")
+        Dim stringReader As String = ""
+        MsgBox("outside while loop")
+        While fileReader.Peek() >= 0
+            MsgBox("inside while loop")
+            stringReader = fileReader.ReadLine()
+
+            If stringReader.Contains("[SHEET ID]") Then
+                stringReader.Replace("[SHEET ID]", "")
+                stringReader.Replace(" ", "")
+                Exit While
+            End If
+        End While
+
+        Return stringReader
+    End Function
 
     ' authorizes application to gain access to the Google Sheet
     Private Function AuthorizeGoogleApp()
@@ -76,18 +94,18 @@ Public Class GoogleSheetsHandler
     ' finds the range where new entries can be submitted to the Google Sheet
     Private Function GetRange(service As SheetsService)
         'Define request parameters.
-        Dim range As String = "Roster!A:A"
+        Dim range As String = "LogSheet!C:C"
         Dim getRequest As SpreadsheetsResource.ValuesResource.GetRequest = service.Spreadsheets.Values.Get(spreadsheetId, range)
         Dim getResponse As Data.ValueRange = getRequest.Execute()
         Dim getValues As IList(Of IList(Of [Object])) = getResponse.Values
         Dim currentCount As Integer = getValues.Count() + 1
 
-        Return "Roster!A" & currentCount & ":A"
+        Return "LogSheet!C" & currentCount & ":C"
     End Function
 
     ' used to generate data for testing purposes
-    Private Sub BuildData()
-        Dim obj As IList(Of Object) = New List(Of Object) From {
+    Private Function BuildData()
+        Dim obj As List(Of Object) = New List(Of Object) From {
             "Column 1",
             "Column 2",
             "Column 3",
@@ -98,7 +116,12 @@ Public Class GoogleSheetsHandler
             "Column 8",
             "Column 9"
         }
-    End Sub
+
+        Dim payload As List(Of IList(Of Object)) = New List(Of IList(Of Object))
+        payload.Add(obj)
+
+        Return payload
+    End Function
 
     ' creates the request and submits the data to the
     Private Sub UpdateGoogleSheetInBatch(requestBody As Data.ValueRange, range As String, service As SheetsService)

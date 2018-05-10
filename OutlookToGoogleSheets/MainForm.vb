@@ -8,7 +8,7 @@
 ' and/or saved as an Excel spreadhsheet.
 '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 
-Public Class FormNew
+Public Class MainForm
     Private errorHandler As ErrorHandler = New ErrorHandler()
 
     Private Sub RunAndUpload_Click(sender As Object, e As EventArgs) Handles RunAndUpload.Click

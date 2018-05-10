@@ -1,5 +1,5 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
-Partial Class FormNew
+Partial Class MainForm
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
@@ -22,7 +22,7 @@ Partial Class FormNew
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FormNew))
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(MainForm))
         Me.RunAndUpload = New System.Windows.Forms.Button()
         Me.Quit = New System.Windows.Forms.Button()
         Me.RunMacro = New System.Windows.Forms.Button()
@@ -33,7 +33,7 @@ Partial Class FormNew
         '
         'RunAndUpload
         '
-        Me.RunAndUpload.Location = New System.Drawing.Point(216, 30)
+        Me.RunAndUpload.Location = New System.Drawing.Point(197, 30)
         Me.RunAndUpload.Name = "RunAndUpload"
         Me.RunAndUpload.Size = New System.Drawing.Size(93, 23)
         Me.RunAndUpload.TabIndex = 0
@@ -42,7 +42,7 @@ Partial Class FormNew
         '
         'Quit
         '
-        Me.Quit.Location = New System.Drawing.Point(225, 117)
+        Me.Quit.Location = New System.Drawing.Point(206, 117)
         Me.Quit.Name = "Quit"
         Me.Quit.Size = New System.Drawing.Size(75, 23)
         Me.Quit.TabIndex = 1
@@ -51,7 +51,7 @@ Partial Class FormNew
         '
         'RunMacro
         '
-        Me.RunMacro.Location = New System.Drawing.Point(225, 59)
+        Me.RunMacro.Location = New System.Drawing.Point(206, 59)
         Me.RunMacro.Name = "RunMacro"
         Me.RunMacro.Size = New System.Drawing.Size(75, 23)
         Me.RunMacro.TabIndex = 3
@@ -60,7 +60,7 @@ Partial Class FormNew
         '
         'Upload
         '
-        Me.Upload.Location = New System.Drawing.Point(225, 88)
+        Me.Upload.Location = New System.Drawing.Point(206, 88)
         Me.Upload.Name = "Upload"
         Me.Upload.Size = New System.Drawing.Size(75, 23)
         Me.Upload.TabIndex = 4
@@ -77,17 +77,17 @@ Partial Class FormNew
         Me.PictureBox1.TabIndex = 2
         Me.PictureBox1.TabStop = False
         '
-        'FormNew
+        'MainForm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(341, 194)
+        Me.ClientSize = New System.Drawing.Size(308, 194)
         Me.Controls.Add(Me.Upload)
         Me.Controls.Add(Me.RunMacro)
         Me.Controls.Add(Me.PictureBox1)
         Me.Controls.Add(Me.Quit)
         Me.Controls.Add(Me.RunAndUpload)
-        Me.Name = "FormNew"
+        Me.Name = "MainForm"
         Me.Text = "Outlook to Google Sheets v1.0"
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)

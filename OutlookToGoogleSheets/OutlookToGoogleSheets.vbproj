@@ -114,10 +114,10 @@
   <ItemGroup>
     <Compile Include="BulkImportContacts.vb" />
     <Compile Include="ErrorHandler.vb" />
-    <Compile Include="FormNew.Designer.vb">
-      <DependentUpon>FormNew.vb</DependentUpon>
+    <Compile Include="MainForm.Designer.vb">
+      <DependentUpon>MainForm.vb</DependentUpon>
     </Compile>
-    <Compile Include="FormNew.vb">
+    <Compile Include="MainForm.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="GoogleSheetsHandler.vb" />
@@ -149,13 +149,19 @@
     <Compile Include="TimeFrame.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="UpdateForm.Designer.vb">
+      <DependentUpon>UpdateForm.vb</DependentUpon>
+    </Compile>
+    <Compile Include="UpdateForm.vb">
+      <SubType>Form</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FormNew.resx">
-      <DependentUpon>FormNew.vb</DependentUpon>
+    <EmbeddedResource Include="MainForm.resx">
+      <DependentUpon>MainForm.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="My Project\Resources.resx">
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
@@ -165,6 +171,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="TimeFrame.resx">
       <DependentUpon>TimeFrame.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UpdateForm.resx">
+      <DependentUpon>UpdateForm.vb</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
@@ -185,6 +194,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\outlook-to-google-sheets-logo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="init.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>
