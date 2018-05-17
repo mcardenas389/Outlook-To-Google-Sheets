@@ -262,6 +262,3 @@ __pycache__/
 
 # Ignore a file type
 *.json
-
-# Ignore specific file
-init.txt

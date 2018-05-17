@@ -195,8 +195,5 @@
   <ItemGroup>
     <None Include="Resources\outlook-to-google-sheets-logo.png" />
   </ItemGroup>
-  <ItemGroup>
-    <Content Include="init.txt" />
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>
