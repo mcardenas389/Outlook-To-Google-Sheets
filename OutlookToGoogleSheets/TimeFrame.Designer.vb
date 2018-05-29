@@ -76,6 +76,7 @@ Partial Class TimeFrame
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.TimeFrames)
         Me.Name = "TimeFrame"
+        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Time Frame"
         Me.ResumeLayout(False)
         Me.PerformLayout()

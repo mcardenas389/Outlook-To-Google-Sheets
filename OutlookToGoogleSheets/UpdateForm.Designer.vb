@@ -30,7 +30,7 @@ Partial Class UpdateForm
         'Update
         '
         Me.Update.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.Update.Location = New System.Drawing.Point(80, 180)
+        Me.Update.Location = New System.Drawing.Point(80, 274)
         Me.Update.Name = "Update"
         Me.Update.Size = New System.Drawing.Size(80, 23)
         Me.Update.TabIndex = 0
@@ -40,7 +40,7 @@ Partial Class UpdateForm
         'Submit
         '
         Me.Submit.Anchor = System.Windows.Forms.AnchorStyles.Bottom
-        Me.Submit.Location = New System.Drawing.Point(202, 180)
+        Me.Submit.Location = New System.Drawing.Point(220, 274)
         Me.Submit.Name = "Submit"
         Me.Submit.Size = New System.Drawing.Size(80, 23)
         Me.Submit.TabIndex = 1
@@ -50,7 +50,7 @@ Partial Class UpdateForm
         'Skip
         '
         Me.Skip.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Skip.Location = New System.Drawing.Point(324, 180)
+        Me.Skip.Location = New System.Drawing.Point(361, 274)
         Me.Skip.Name = "Skip"
         Me.Skip.Size = New System.Drawing.Size(80, 23)
         Me.Skip.TabIndex = 2
@@ -61,12 +61,14 @@ Partial Class UpdateForm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(488, 215)
+        Me.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.ClientSize = New System.Drawing.Size(525, 309)
         Me.Controls.Add(Me.Skip)
         Me.Controls.Add(Me.Submit)
         Me.Controls.Add(Me.Update)
-        Me.MaximumSize = New System.Drawing.Size(620, 350)
+        Me.MaximumSize = New System.Drawing.Size(620, 450)
         Me.Name = "UpdateForm"
+        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Update?"
         Me.ResumeLayout(False)
 
