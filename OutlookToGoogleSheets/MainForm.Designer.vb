@@ -87,6 +87,7 @@ Partial Class MainForm
         Me.Controls.Add(Me.PictureBox1)
         Me.Controls.Add(Me.Quit)
         Me.Controls.Add(Me.RunAndUpload)
+        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
         Me.Name = "MainForm"
         Me.Text = "Outlook to Google Sheets v1.0"
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()

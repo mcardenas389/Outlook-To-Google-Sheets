@@ -157,8 +157,8 @@ Public Class BulkImportContacts
             days = 30
         End If
 
-        'filter = "[Received] >= " & Chr(34) & New DateTime(2017, 8, 30) & Chr(34)
-        filter = "[Received] >= " & Chr(34) & DateTime.Today.AddDays(-days) & Chr(34)
+        filter = "[Received] >= " & Chr(34) & New DateTime(2017, 8, 30) & Chr(34)
+        'filter = "[Received] >= " & Chr(34) & DateTime.Today.AddDays(-days) & Chr(34)
 
         MyItems = FoundFolder.Items.Restrict(filter)
 
@@ -320,28 +320,28 @@ ErrorHandler:
 
         ' clean up values and remove unwanted characters
         ' used on shared PC
-        'Dim i As Integer
-        'For i = 1 To 13
-        '    ' remove the " mark from the hyperlink
-        '    If i = 3 Or i = 4 Or i = 8 Then
-        '        splitArray = Split(messageArray(i), Chr(34))
-        '        messageArray(i) = splitArray(UBound(splitArray))
-        '    End If
-
-        '    ' remove the newline character and replace it with an empty string
-        '    messageArray(i) = Replace(messageArray(i), vbNewLine, "")
-        'Next
-
-        'splitArray = Split(messageArray(15), vbNewLine)
-        'messageArray(15) = splitArray(6)
-
-        ' replace unwanted characters with an empty string
-        ' used on end user's PC
         Dim i As Integer
-        For i = 1 To UBound(messageArray)
+        For i = 1 To 13
+            ' remove the " mark from the hyperlink
+            If i = 3 Or i = 4 Or i = 8 Then
+                splitArray = Split(messageArray(i), Chr(34))
+                messageArray(i) = splitArray(UBound(splitArray))
+            End If
+
+            ' remove the newline character and replace it with an empty string
             messageArray(i) = Replace(messageArray(i), vbNewLine, "")
-            messageArray(i) = Replace(messageArray(i), vbTab, "")
         Next
+
+        splitArray = Split(messageArray(15), vbNewLine)
+        messageArray(15) = splitArray(6)
+
+        '' replace unwanted characters with an empty string
+        '' used on end user's PC
+        'Dim i As Integer
+        'For i = 1 To UBound(messageArray)
+        '    messageArray(i) = Replace(messageArray(i), vbNewLine, "")
+        '    messageArray(i) = Replace(messageArray(i), vbTab, "")
+        'Next
 
         ' search for contacts after collecting the relevant data
         ContactItems = FindContacts(messageArray(1), messageArray(2))
@@ -355,36 +355,63 @@ ErrorHandler:
 
         ' if the contact is found, then prompt the user before updating it
         For Each Contact In ContactItems
-            ' build prompt
-            ' new contact info
-            prompt = "Contact exists!" & vbNewLine & vbNewLine & "New information:" & vbNewLine &
-                "Name: " & messageArray(1) & " " & messageArray(2) & vbNewLine &
-                "Email: " & messageArray(3) & vbNewLine &
-                "Phone: " & messageArray(4) & vbNewLine &
-                "Company: " & messageArray(6) & vbNewLine &
-                "Job Title: " & messageArray(7) & vbNewLine &
-                "Address: " & messageArray(8) & vbNewLine & messageArray(9) & ", " &
-                StateAbbreviation(messageArray(10)) & " " & messageArray(11) & vbNewLine &
-                messageArray(12) & vbNewLine & vbNewLine
+            Dim DataArray(,) As String = New String(6, 1) {
+                {"Name: " & messageArray(1) & " " & messageArray(2), "Name: " & Contact.FullName},
+                {"Email: " & messageArray(3), "Email: " & Contact.Email1Address},
+                {"Phone: " & messageArray(4), "Phone: " & Contact.BusinessTelephoneNumber},
+                {"Company: " & messageArray(6), "Company: " & Contact.CompanyName},
+                {"Job Title: " & messageArray(7), "Job Title: " & Contact.JobTitle},
+                {"Address: " & messageArray(8) & vbNewLine & messageArray(9) & ", " &
+                    StateAbbreviation(messageArray(10)) & " " & messageArray(11) & vbNewLine &
+                    messageArray(12),
+                    "Address: " & Contact.BusinessAddress & vbNewLine &
+                    Contact.BusinessAddressCountry},
+                {Contact.Body, DateTime.Today.Year & vbNewLine & "Position: " & messageArray(13)}
+            }
 
-            ' old contact info
-            prompt = prompt & "Old information:" & vbNewLine &
-                "Name: " & Contact.FullName & vbNewLine &
-                "Email: " & Contact.Email1Address & vbNewLine &
-                "Phone: " & Contact.BusinessTelephoneNumber & vbNewLine &
-                "Company: " & Contact.CompanyName & vbNewLine &
-                "Job Title: " & Contact.JobTitle & vbNewLine &
-                "Address: " & Contact.BusinessAddress & vbNewLine &
-                Contact.BusinessAddressCountry & vbNewLine &
-                "Notes: " & Contact.Body & vbNewLine &
-                vbNewLine & "Update with new information?"
+            ' create and show UpdateForm
+            Dim updateForm As UpdateForm = New UpdateForm(DataArray)
 
-            If MsgBox(prompt, vbQuestion Or vbYesNo, "Update?") = vbNo Then
-                Contact = Nothing
+            updateForm.ShowDialog()
+
+            If updateForm.result = Results.Update Then
+                Call SaveContact(Contact, messageArray)
+            ElseIf updateForm.result = Results.Submit Then
+                Call BuildExportData(messageArray)
             End If
 
-            ' create or update contact if contact object has been set
-            Call SaveContact(Contact, messageArray)
+            DataArray = Nothing
+            updateForm = Nothing
+            '' build prompt
+            '' new contact info
+            'prompt = "Contact exists!" & vbNewLine & vbNewLine & "New information:" & vbNewLine &
+            '    "Name: " & messageArray(1) & " " & messageArray(2) & vbNewLine &
+            '    "Email: " & messageArray(3) & vbNewLine &
+            '    "Phone: " & messageArray(4) & vbNewLine &
+            '    "Company: " & messageArray(6) & vbNewLine &
+            '    "Job Title: " & messageArray(7) & vbNewLine &
+            '    "Address: " & messageArray(8) & vbNewLine & messageArray(9) & ", " &
+            '    StateAbbreviation(messageArray(10)) & " " & messageArray(11) & vbNewLine &
+            '    messageArray(12) & vbNewLine & vbNewLine
+
+            '' old contact info
+            'prompt = prompt & "Old information:" & vbNewLine &
+            '    "Name: " & Contact.FullName & vbNewLine &
+            '    "Email: " & Contact.Email1Address & vbNewLine &
+            '    "Phone: " & Contact.BusinessTelephoneNumber & vbNewLine &
+            '    "Company: " & Contact.CompanyName & vbNewLine &
+            '    "Job Title: " & Contact.JobTitle & vbNewLine &
+            '    "Address: " & Contact.BusinessAddress & vbNewLine &
+            '    Contact.BusinessAddressCountry & vbNewLine &
+            '    "Notes: " & Contact.Body & vbNewLine &
+            '    vbNewLine & "Update with new information?"
+
+            'If MsgBox(prompt, vbQuestion Or vbYesNo, "Update?") = vbNo Then
+            '    Contact = Nothing
+            'End If
+
+            '' create or update contact if contact object has been set
+            'Call SaveContact(Contact, messageArray)
         Next
 
         ' if no contacts are found, then create a new contact without prompting the user
@@ -470,14 +497,16 @@ ErrorHandler:
             If Contact.Body = "" Then
                 Contact.Body = DateTime.Today.Year & vbNewLine & "Position: " & messageArray(13)
             Else
-                Dim prompt As String = "Append notes?" & vbNewLine & vbNewLine & "Notes:" & vbNewLine &
-                    Contact.Body & vbNewLine & vbNewLine & "Append with:" & vbNewLine &
-                    "Position: " & messageArray(13)
+                Contact.Body = Contact.Body & vbNewLine & vbNewLine & DateTime.Today.Year &
+                    vbNewLine & "Position: " & messageArray(13)
+                'Dim prompt As String = "Append notes?" & vbNewLine & vbNewLine & "Notes:" & vbNewLine &
+                '    Contact.Body & vbNewLine & vbNewLine & "Append with:" & vbNewLine &
+                '    "Position: " & messageArray(13)
 
-                If MsgBox(prompt, vbQuestion Or vbYesNo) = vbYes Then
-                    Contact.Body = Contact.Body & vbNewLine & vbNewLine & DateTime.Today.Year &
-                        vbNewLine & "Position: " & messageArray(13)
-                End If
+                'If MsgBox(prompt, vbQuestion Or vbYesNo) = vbYes Then
+                '    Contact.Body = Contact.Body & vbNewLine & vbNewLine & DateTime.Today.Year &
+                '        vbNewLine & "Position: " & messageArray(13)
+                'End If
             End If
 
             ' build export data

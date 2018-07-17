@@ -75,6 +75,7 @@ Partial Class TimeFrame
         Me.Controls.Add(Me.OK)
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.TimeFrames)
+        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
         Me.Name = "TimeFrame"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Time Frame"

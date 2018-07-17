@@ -27,20 +27,18 @@ Public Class GoogleSheetsHandler
 
     ' initializes communications with Google Sheets and submits the data
     Public Sub SubmitToGoogleSheets(exportData As IList(Of IList(Of Object)))
-        'If exportData.Count = 0 Then
-        '    Throw New Exception("There is currently no data to upload." & vbNewLine &
-        '        "Please run the macro first.")
-        'End If
+        If exportData.Count = 0 Then
+            Throw New Exception("There is currently no data to upload." & vbNewLine &
+                "Please run the macro first.")
+        End If
 
         Dim service = AuthorizeGoogleApp()
         Dim range As String = GetRange(service)
 
-        'Dim requestValues As IList(Of IList(Of Object)) = BuildData()
-
         Dim requestbody As Data.ValueRange = New Data.ValueRange With {
             .Range = range,
             .MajorDimension = "1",
-            .Values = BuildData() 'exportData
+            .Values = exportData
         }
 
         UpdateGoogleSheetInBatch(requestbody, range, service)
