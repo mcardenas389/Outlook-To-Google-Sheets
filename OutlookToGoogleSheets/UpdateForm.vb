@@ -1,20 +1,20 @@
 ﻿Public Class UpdateForm
     Friend WithEvents TableLayout As TableLayoutPanel
 
-    Public result ' stores the choice
-
+    Private result ' stores the choice
     Private DataArray(,) As String ' stores the display data
-    '    = New String(6, 1) {
-    '    {"Full Name: Mary Ann Pacheco", "Full Name: Mary Ann Pacheco"},
-    '    {"Company: Borough of Manhattan Community College", "Company: Rio Hondo Community College"},
-    '    {"Job Title: Janitor", "Job Title: Trustee"},
-    '    {"Email: fake@email.edu", "Email: fake@email.com"},
-    '    {"Business Phone: 5556666", "Business Phone: 7775555"},
-    '    {"Address: 1234 New Road Avenue" & vbNewLine & "CA  00002", "Address: 3333 Workman Mill Road" & vbNewLine & "PA  00001"},
-    '    {"Notes: 2018 Position: Other 2018 Position: Other", ""}
-    '}
 
     Public Sub New()
+        DataArray = New String(6, 1) { ' stores the display data
+            {"Full Name: Name1", "Full Name: Name2"},
+            {"Company: Company1", "Company: Company2"},
+            {"Job Title: Job1", "Job Title: Job2"},
+            {"Email: fake1@email.edu", "Email: fake2@email.com"},
+            {"Business Phone: 5556666", "Business Phone: 7775555"},
+            {"Address: Address1" & vbNewLine & "CA  10245", "Address: Address2" & vbNewLine & "PA  10356"},
+            {"Notes:" & vbNewLine & "2018 Position: Other" & vbNewLine & "2018 Position: Other", "more notes"}
+        }
+
         CreateTable()
     End Sub
 
@@ -23,6 +23,10 @@
 
         CreateTable()
     End Sub
+
+    Public Function GetResult()
+        Return result
+    End Function
 
     ' creates the table for the DataArray
     Private Sub CreateTable()
@@ -99,12 +103,10 @@
                 TableLayout.Controls.Add(lbl, y, x + rowOffset)
             Next
         Next
-
-        Dim notes As Label = New Label
     End Sub
 
     Private Sub Update_Click(sender As Object, e As EventArgs) Handles Update.Click
-        result = Results.Update
+        result = Results.Updates
         Close()
     End Sub
 
@@ -119,6 +121,9 @@
     End Sub
 
     Private Sub Notes_Click(sender As Object, e As EventArgs) Handles Notes.Click
-        MsgBox(DataArray.GetValue(UBound(DataArray, 1), 0))
+        Dim notes = New Notes
+        notes.Label1.Text = DataArray.GetValue(UBound(DataArray, 1), 0)
+
+        notes.ShowDialog()
     End Sub
 End Class

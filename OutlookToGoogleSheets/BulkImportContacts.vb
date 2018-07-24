@@ -374,9 +374,9 @@ ErrorHandler:
 
             updateForm.ShowDialog()
 
-            If updateForm.result = Results.Update Then
+            If updateForm.GetResult() = Results.Updates Then
                 Call SaveContact(Contact, messageArray)
-            ElseIf updateForm.result = Results.Submit Then
+            ElseIf updateForm.GetResult() = Results.Submit Then
                 Call BuildExportData(messageArray)
             End If
 

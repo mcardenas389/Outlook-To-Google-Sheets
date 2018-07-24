@@ -1,6 +1,6 @@
 ﻿Module CustomDialogResults
     Public Enum Results
-        Update
+        Updates
         Submit
         Skip
     End Enum
