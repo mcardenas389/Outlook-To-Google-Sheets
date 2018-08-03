@@ -22,6 +22,7 @@ Partial Class TimeFrame
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(TimeFrame))
         Me.TimeFrames = New System.Windows.Forms.ComboBox()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.OK = New System.Windows.Forms.Button()
@@ -76,6 +77,7 @@ Partial Class TimeFrame
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.TimeFrames)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "TimeFrame"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Time Frame"

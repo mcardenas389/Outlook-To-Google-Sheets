@@ -22,6 +22,7 @@ Partial Class UpdateForm
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(UpdateForm))
         Me.Update = New System.Windows.Forms.Button()
         Me.Submit = New System.Windows.Forms.Button()
         Me.Skip = New System.Windows.Forms.Button()
@@ -77,6 +78,7 @@ Partial Class UpdateForm
         Me.Controls.Add(Me.Skip)
         Me.Controls.Add(Me.Submit)
         Me.Controls.Add(Me.Update)
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MaximumSize = New System.Drawing.Size(620, 450)
         Me.Name = "UpdateForm"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen

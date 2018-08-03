@@ -46,6 +46,9 @@
   <PropertyGroup>
     <OptionInfer>On</OptionInfer>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>outlook_to_google_sheets_logo_Qq5_icon.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Google.Apis, Version=1.32.2.0, Culture=neutral, PublicKeyToken=4b01fa6e34db77ab, processorArchitecture=MSIL">
       <HintPath>..\packages\Google.Apis.1.32.2\lib\net45\Google.Apis.dll</HintPath>
@@ -194,6 +197,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\outlook-to-google-sheets-logo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="outlook_to_google_sheets_logo_Qq5_icon.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>

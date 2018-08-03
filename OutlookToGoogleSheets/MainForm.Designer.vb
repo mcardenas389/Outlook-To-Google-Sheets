@@ -88,6 +88,7 @@ Partial Class MainForm
         Me.Controls.Add(Me.Quit)
         Me.Controls.Add(Me.RunAndUpload)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "MainForm"
         Me.Text = "Outlook to Google Sheets v1.0"
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
