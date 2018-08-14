@@ -1,7 +1,15 @@
 ﻿<?xml version='1.0' encoding='utf-8'?>
-<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" UseMySettingsClassName="true">
-  <Profiles>
-    <Profile Name="(Default)" />
-  </Profiles>
-  <Settings />
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="My" GeneratedClassName="MySettings" UseMySettingsClassName="true">
+  <Profiles />
+  <Settings>
+    <Setting Name="URL" Type="System.String" Scope="User">
+      <Value Profile="(Default)">1PaS8cxkbd5o4R5n05Ye5rdaBRFfvpXZX5loYesCnkes</Value>
+    </Setting>
+    <Setting Name="SheetName" Type="System.String" Scope="User">
+      <Value Profile="(Default)">LogSheet</Value>
+    </Setting>
+    <Setting Name="Column" Type="System.String" Scope="User">
+      <Value Profile="(Default)">C</Value>
+    </Setting>
+  </Settings>
 </SettingsFile>

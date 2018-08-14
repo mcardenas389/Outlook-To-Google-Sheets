@@ -28,6 +28,7 @@ Partial Class MainForm
         Me.RunMacro = New System.Windows.Forms.Button()
         Me.Upload = New System.Windows.Forms.Button()
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
+        Me.Settings = New System.Windows.Forms.Button()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -42,7 +43,7 @@ Partial Class MainForm
         '
         'Quit
         '
-        Me.Quit.Location = New System.Drawing.Point(206, 117)
+        Me.Quit.Location = New System.Drawing.Point(206, 146)
         Me.Quit.Name = "Quit"
         Me.Quit.Size = New System.Drawing.Size(75, 23)
         Me.Quit.TabIndex = 1
@@ -77,11 +78,21 @@ Partial Class MainForm
         Me.PictureBox1.TabIndex = 2
         Me.PictureBox1.TabStop = False
         '
+        'Settings
+        '
+        Me.Settings.Location = New System.Drawing.Point(206, 117)
+        Me.Settings.Name = "Settings"
+        Me.Settings.Size = New System.Drawing.Size(75, 23)
+        Me.Settings.TabIndex = 5
+        Me.Settings.Text = "Settings"
+        Me.Settings.UseVisualStyleBackColor = True
+        '
         'MainForm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(308, 194)
+        Me.Controls.Add(Me.Settings)
         Me.Controls.Add(Me.Upload)
         Me.Controls.Add(Me.RunMacro)
         Me.Controls.Add(Me.PictureBox1)
@@ -101,4 +112,5 @@ Partial Class MainForm
     Friend WithEvents PictureBox1 As PictureBox
     Friend WithEvents RunMacro As Button
     Friend WithEvents Upload As Button
+    Friend WithEvents Settings As Button
 End Class

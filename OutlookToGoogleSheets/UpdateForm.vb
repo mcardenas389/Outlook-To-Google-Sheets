@@ -105,7 +105,7 @@
         Next
     End Sub
 
-    Private Sub Update_Click(sender As Object, e As EventArgs) Handles Update.Click
+    Private Sub Updates_Click(sender As Object, e As EventArgs) Handles Updates.Click
         result = Results.Updates
         Close()
     End Sub

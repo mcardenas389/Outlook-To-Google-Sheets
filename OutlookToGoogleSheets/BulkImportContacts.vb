@@ -11,11 +11,9 @@ Imports Outlook = Microsoft.Office.Interop.Outlook
 Public Class BulkImportContacts
     Private oApp As Outlook.Application ' the current instance of Outlook
     Private exportData As List(Of IList(Of Object)) ' a data structure for storing the upload payload
-    Private gSheets As GoogleSheetsHandler
 
     Public Sub New()
         exportData = New List(Of IList(Of Object))
-        gSheets = New GoogleSheetsHandler()
     End Sub
 
     ' clears the data structure, exportData, if it contains any data
@@ -27,6 +25,7 @@ Public Class BulkImportContacts
 
     ' send upload data to the Google sheet
     Public Sub Upload()
+        Dim gSheets As GoogleSheetsHandler = New GoogleSheetsHandler()
         gSheets.SubmitToGoogleSheets(exportData)
     End Sub
 
@@ -380,38 +379,9 @@ ErrorHandler:
                 Call BuildExportData(messageArray)
             End If
 
+            ' clean up
             DataArray = Nothing
             updateForm = Nothing
-            '' build prompt
-            '' new contact info
-            'prompt = "Contact exists!" & vbNewLine & vbNewLine & "New information:" & vbNewLine &
-            '    "Name: " & messageArray(1) & " " & messageArray(2) & vbNewLine &
-            '    "Email: " & messageArray(3) & vbNewLine &
-            '    "Phone: " & messageArray(4) & vbNewLine &
-            '    "Company: " & messageArray(6) & vbNewLine &
-            '    "Job Title: " & messageArray(7) & vbNewLine &
-            '    "Address: " & messageArray(8) & vbNewLine & messageArray(9) & ", " &
-            '    StateAbbreviation(messageArray(10)) & " " & messageArray(11) & vbNewLine &
-            '    messageArray(12) & vbNewLine & vbNewLine
-
-            '' old contact info
-            'prompt = prompt & "Old information:" & vbNewLine &
-            '    "Name: " & Contact.FullName & vbNewLine &
-            '    "Email: " & Contact.Email1Address & vbNewLine &
-            '    "Phone: " & Contact.BusinessTelephoneNumber & vbNewLine &
-            '    "Company: " & Contact.CompanyName & vbNewLine &
-            '    "Job Title: " & Contact.JobTitle & vbNewLine &
-            '    "Address: " & Contact.BusinessAddress & vbNewLine &
-            '    Contact.BusinessAddressCountry & vbNewLine &
-            '    "Notes: " & Contact.Body & vbNewLine &
-            '    vbNewLine & "Update with new information?"
-
-            'If MsgBox(prompt, vbQuestion Or vbYesNo, "Update?") = vbNo Then
-            '    Contact = Nothing
-            'End If
-
-            '' create or update contact if contact object has been set
-            'Call SaveContact(Contact, messageArray)
         Next
 
         ' if no contacts are found, then create a new contact without prompting the user
@@ -499,14 +469,6 @@ ErrorHandler:
             Else
                 Contact.Body = Contact.Body & vbNewLine & vbNewLine & DateTime.Today.Year &
                     vbNewLine & "Position: " & messageArray(13)
-                'Dim prompt As String = "Append notes?" & vbNewLine & vbNewLine & "Notes:" & vbNewLine &
-                '    Contact.Body & vbNewLine & vbNewLine & "Append with:" & vbNewLine &
-                '    "Position: " & messageArray(13)
-
-                'If MsgBox(prompt, vbQuestion Or vbYesNo) = vbYes Then
-                '    Contact.Body = Contact.Body & vbNewLine & vbNewLine & DateTime.Today.Year &
-                '        vbNewLine & "Position: " & messageArray(13)
-                'End If
             End If
 
             ' build export data

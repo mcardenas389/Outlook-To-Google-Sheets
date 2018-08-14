@@ -23,21 +23,21 @@ Partial Class UpdateForm
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(UpdateForm))
-        Me.Update = New System.Windows.Forms.Button()
+        Me.Updates = New System.Windows.Forms.Button()
         Me.Submit = New System.Windows.Forms.Button()
         Me.Skip = New System.Windows.Forms.Button()
         Me.Notes = New System.Windows.Forms.Button()
         Me.SuspendLayout()
         '
-        'Update
+        'Updates
         '
-        Me.Update.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.Update.Location = New System.Drawing.Point(140, 184)
-        Me.Update.Name = "Update"
-        Me.Update.Size = New System.Drawing.Size(80, 23)
-        Me.Update.TabIndex = 0
-        Me.Update.Text = "&Update"
-        Me.Update.UseVisualStyleBackColor = True
+        Me.Updates.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.Updates.Location = New System.Drawing.Point(140, 184)
+        Me.Updates.Name = "Updates"
+        Me.Updates.Size = New System.Drawing.Size(80, 23)
+        Me.Updates.TabIndex = 0
+        Me.Updates.Text = "&Update"
+        Me.Updates.UseVisualStyleBackColor = True
         '
         'Submit
         '
@@ -77,7 +77,7 @@ Partial Class UpdateForm
         Me.Controls.Add(Me.Notes)
         Me.Controls.Add(Me.Skip)
         Me.Controls.Add(Me.Submit)
-        Me.Controls.Add(Me.Update)
+        Me.Controls.Add(Me.Updates)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MaximumSize = New System.Drawing.Size(620, 450)
         Me.Name = "UpdateForm"
@@ -87,7 +87,7 @@ Partial Class UpdateForm
 
     End Sub
 
-    Friend WithEvents Update As Button
+    Friend WithEvents Updates As Button
     Friend WithEvents Submit As Button
     Friend WithEvents Skip As Button
     Friend WithEvents Notes As Button

@@ -18,11 +18,15 @@ Imports Data = Google.Apis.Sheets.v4.Data
 Public Class GoogleSheetsHandler
     Private ApplicationName As String
     Private spreadsheetId As String
+    Private sheetName As String
+    Private column As String
 
     ' constructor
     Public Sub New()
         ApplicationName = "Outlook to Google Sheets"
-        spreadsheetId = "1PaS8cxkbd5o4R5n05Ye5rdaBRFfvpXZX5loYesCnkes"
+        spreadsheetId = My.Settings.URL
+        sheetName = My.Settings.SheetName
+        column = My.Settings.Column
     End Sub
 
     ' initializes communications with Google Sheets and submits the data
@@ -92,13 +96,14 @@ Public Class GoogleSheetsHandler
     ' finds the range where new entries can be submitted to the Google Sheet
     Private Function GetRange(service As SheetsService)
         'Define request parameters.
-        Dim range As String = "LogSheet!C:C"
+        'Dim range As String = "LogSheet!C:C"
+        Dim range As String = sheetName & "!" & column & ":" & column
         Dim getRequest As SpreadsheetsResource.ValuesResource.GetRequest = service.Spreadsheets.Values.Get(spreadsheetId, range)
         Dim getResponse As Data.ValueRange = getRequest.Execute()
         Dim getValues As IList(Of IList(Of [Object])) = getResponse.Values
         Dim currentCount As Integer = getValues.Count() + 1
 
-        Return "LogSheet!C" & currentCount & ":C"
+        Return sheetName & "!" & column & currentCount & ":" & column
     End Function
 
     ' used to generate data for testing purposes
@@ -121,7 +126,7 @@ Public Class GoogleSheetsHandler
         Return payload
     End Function
 
-    ' creates the request and submits the data to the
+    ' creates the request and submits the data to the Google Sheet
     Private Sub UpdateGoogleSheetInBatch(requestBody As Data.ValueRange, range As String, service As SheetsService)
         Dim request As SpreadsheetsResource.ValuesResource.AppendRequest = service.Spreadsheets.Values.Append(requestBody, spreadsheetId, range)
         request.InsertDataOption = SpreadsheetsResource.ValuesResource.AppendRequest.InsertDataOptionEnum.INSERTROWS
