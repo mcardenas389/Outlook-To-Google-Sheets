@@ -16,13 +16,6 @@ Public Class BulkImportContacts
         exportData = New List(Of IList(Of Object))
     End Sub
 
-    ' clears the data structure, exportData, if it contains any data
-    Public Sub ClearData()
-        If exportData.Count > 0 Then
-            exportData.Clear()
-        End If
-    End Sub
-
     ' send upload data to the Google sheet
     Public Sub Upload()
         Dim gSheets As GoogleSheetsHandler = New GoogleSheetsHandler()
@@ -64,6 +57,13 @@ Public Class BulkImportContacts
 
         ' clean up
         FoundFolder = Nothing
+    End Sub
+
+    ' clears the data structure, exportData, if it contains any data
+    Private Sub ClearData()
+        If exportData.Count > 0 Then
+            exportData.Clear()
+        End If
     End Sub
 
     ' checks if Outlook is installed on the machine.
