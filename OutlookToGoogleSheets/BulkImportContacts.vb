@@ -156,8 +156,8 @@ Public Class BulkImportContacts
             days = 30
         End If
 
-        filter = "[Received] >= " & Chr(34) & New DateTime(2017, 8, 30) & Chr(34)
-        'filter = "[Received] >= " & Chr(34) & DateTime.Today.AddDays(-days) & Chr(34)
+        'filter = "[Received] >= " & Chr(34) & New DateTime(2017, 8, 30) & Chr(34)
+        filter = "[Received] >= " & Chr(34) & DateTime.Today.AddDays(-days) & Chr(34)
 
         MyItems = FoundFolder.Items.Restrict(filter)
 
@@ -172,11 +172,6 @@ Public Class BulkImportContacts
             ' ElseIf Mail.SenderEmailAddress Like paypal Then
             '    Call UpdatePayment(Mail.body)
             ' End If
-
-            ' for debugging
-            ' Mail.SaveAs "C:\Users\Hunter\Documents\out" & counter & ".txt", olTXT
-            ' Mail.SaveAs "C:\Users\Michelle\Documents\out" & counter & ".txt", olTXT
-            ' Debug.Print counter + 1 & ". Body: " & vbNewLine & Mail.body
 
             counter += 1
         Next
@@ -317,30 +312,30 @@ ErrorHandler:
         delimitedMessage = Replace(delimitedMessage, "Total", "###")
         messageArray = Split(delimitedMessage, "###")
 
-        ' clean up values and remove unwanted characters
-        ' used on shared PC
-        Dim i As Integer
-        For i = 1 To 13
-            ' remove the " mark from the hyperlink
-            If i = 3 Or i = 4 Or i = 8 Then
-                splitArray = Split(messageArray(i), Chr(34))
-                messageArray(i) = splitArray(UBound(splitArray))
-            End If
-
-            ' remove the newline character and replace it with an empty string
-            messageArray(i) = Replace(messageArray(i), vbNewLine, "")
-        Next
-
-        splitArray = Split(messageArray(15), vbNewLine)
-        messageArray(15) = splitArray(6)
-
-        '' replace unwanted characters with an empty string
-        '' used on end user's PC
+        '' clean up values and remove unwanted characters
+        '' used on shared PC
         'Dim i As Integer
-        'For i = 1 To UBound(messageArray)
+        'For i = 1 To 13
+        '    ' remove the " mark from the hyperlink
+        '    If i = 3 Or i = 4 Or i = 8 Then
+        '        splitArray = Split(messageArray(i), Chr(34))
+        '        messageArray(i) = splitArray(UBound(splitArray))
+        '    End If
+
+        '    ' remove the newline character and replace it with an empty string
         '    messageArray(i) = Replace(messageArray(i), vbNewLine, "")
-        '    messageArray(i) = Replace(messageArray(i), vbTab, "")
         'Next
+
+        'splitArray = Split(messageArray(15), vbNewLine)
+        'messageArray(15) = splitArray(6)
+
+        ' replace unwanted characters with an empty string
+        ' used on end user's PC
+        Dim i As Integer
+        For i = 1 To UBound(messageArray)
+            messageArray(i) = Replace(messageArray(i), vbNewLine, "")
+            messageArray(i) = Replace(messageArray(i), vbTab, "")
+        Next
 
         ' search for contacts after collecting the relevant data
         ContactItems = FindContacts(messageArray(1), messageArray(2))

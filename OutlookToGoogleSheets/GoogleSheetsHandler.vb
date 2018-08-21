@@ -48,24 +48,6 @@ Public Class GoogleSheetsHandler
         UpdateGoogleSheetInBatch(requestbody, range, service)
     End Sub
 
-    Private Function Init()
-        Dim fileReader As StreamReader = My.Computer.FileSystem.OpenTextFileReader("init.txt")
-        Dim stringReader As String = ""
-        MsgBox("outside while loop")
-        While fileReader.Peek() >= 0
-            MsgBox("inside while loop")
-            stringReader = fileReader.ReadLine()
-
-            If stringReader.Contains("[SHEET ID]") Then
-                stringReader.Replace("[SHEET ID]", "")
-                stringReader.Replace(" ", "")
-                Exit While
-            End If
-        End While
-
-        Return stringReader
-    End Function
-
     ' authorizes application to gain access to the Google Sheet
     Private Function AuthorizeGoogleApp()
         Dim credential As UserCredential
@@ -106,6 +88,14 @@ Public Class GoogleSheetsHandler
         Return sheetName & "!" & column & currentCount & ":" & column
     End Function
 
+    ' creates the request and submits the data to the Google Sheet
+    Private Sub UpdateGoogleSheetInBatch(requestBody As Data.ValueRange, range As String, service As SheetsService)
+        Dim request As SpreadsheetsResource.ValuesResource.AppendRequest = service.Spreadsheets.Values.Append(requestBody, spreadsheetId, range)
+        request.InsertDataOption = SpreadsheetsResource.ValuesResource.AppendRequest.InsertDataOptionEnum.INSERTROWS
+        request.ValueInputOption = SpreadsheetsResource.ValuesResource.AppendRequest.ValueInputOptionEnum.USERENTERED
+        Dim response As Data.AppendValuesResponse = request.Execute()
+    End Sub
+
     ' used to generate data for testing purposes
     Private Function BuildData()
         Dim obj As List(Of Object) = New List(Of Object) From {
@@ -125,12 +115,4 @@ Public Class GoogleSheetsHandler
 
         Return payload
     End Function
-
-    ' creates the request and submits the data to the Google Sheet
-    Private Sub UpdateGoogleSheetInBatch(requestBody As Data.ValueRange, range As String, service As SheetsService)
-        Dim request As SpreadsheetsResource.ValuesResource.AppendRequest = service.Spreadsheets.Values.Append(requestBody, spreadsheetId, range)
-        request.InsertDataOption = SpreadsheetsResource.ValuesResource.AppendRequest.InsertDataOptionEnum.INSERTROWS
-        request.ValueInputOption = SpreadsheetsResource.ValuesResource.AppendRequest.ValueInputOptionEnum.USERENTERED
-        Dim response As Data.AppendValuesResponse = request.Execute()
-    End Sub
 End Class
