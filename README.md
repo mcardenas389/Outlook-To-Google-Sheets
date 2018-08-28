@@ -1,5 +1,5 @@
 # Outlook to Google Sheets
 
-[create anchor](#anchor-in-markdown)
+[Installation](#installation)
 
-# anchor-in-markdown
+## Installation
