@@ -1,7 +1,5 @@
 # Outlook to Google Sheets
 
-Currently this readme is work in progress.
-
 1. [Disclaimer](#disclaimer)
 2. [Installation](#installation)
 3. [Documentation](#documentation)
@@ -12,7 +10,9 @@ This application is only meant for internal use by the National Center for the S
 
 ## Installation
 
-work in progress
+To download the latest release of this project, simply follow this [link](https://github.com/mcardenas389/Outlook-To-Google-Sheets/releases/tag/v1.0) then download and unzip the file.
+
+However, you won't be able to upload any data you collect from Outlook just yet. For the sake of security, the client_secret.json file is not included in the zip file. All you need to do is download the json file from [Google APIs](https://console.developers.google.com), go to APIs & Services, and click on Credentials. Click on the download button from the revelant . Once you have the json file, **remember to rename it to client_secret.json** and include it in the root folder of the project. You should now be able to upload data to your desired Google Sheets spreadsheet.
 
 ## Documentation
 
