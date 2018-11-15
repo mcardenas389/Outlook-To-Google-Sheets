@@ -371,6 +371,7 @@ ErrorHandler:
             If updateForm.GetResult() = Results.Updates Then
                 Call SaveContact(Contact, messageArray)
             ElseIf updateForm.GetResult() = Results.Submit Then
+                Call AppendNotes(Contact, messageArray(13))
                 Call BuildExportData(messageArray)
             End If
 
@@ -459,27 +460,35 @@ ErrorHandler:
                 .Categories = "Correspondence"
             End With
 
-            If Contact.Body = "" Then
-                Contact.Body = DateTime.Today.Year & vbNewLine & "Position: " & messageArray(13)
-            Else
-                Contact.Body = Contact.Body & vbNewLine & vbNewLine & DateTime.Today.Year &
-                    vbNewLine & "Position: " & messageArray(13)
-            End If
+            ' save contact data in default contacts folder
+            Contact.Save()
+
+            ' append notes
+            Call AppendNotes(Contact, messageArray(13))
 
             ' build export data
             Call BuildExportData(messageArray)
-
-            ' save contact data in default contacts folder
-            Contact.Save()
         End If
+    End Sub
+
+    ' creates or appends current notes
+    Private Sub AppendNotes(Contact As Outlook.ContactItem, note As String)
+        If Contact.Body = "" Then
+            Contact.Body = DateTime.Today.Year & vbNewLine & "Position: " & note
+        Else
+            Contact.Body = Contact.Body & vbNewLine & vbNewLine & DateTime.Today.Year &
+                vbNewLine & "Position: " & note
+        End If
+
+        Contact.Save()
     End Sub
 
     ' creates a list of objects containing contact data
     ' submits it to Module1.AppendExportData() to become of data payload
     Private Sub BuildExportData(messageArray() As String)
         Dim dataBlock As List(Of Object) = New List(Of Object) From {
-            messageArray(2),
             messageArray(1),
+            messageArray(2),
             messageArray(7),
             messageArray(6),
             messageArray(9),
