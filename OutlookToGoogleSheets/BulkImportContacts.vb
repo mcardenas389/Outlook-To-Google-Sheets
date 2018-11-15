@@ -377,41 +377,12 @@ ErrorHandler:
             If updateForm.GetResult() = Results.Updates Then
                 Call SaveContact(Contact, messageArray)
             ElseIf updateForm.GetResult() = Results.Submit Then
+                Call AppendNotes(Contact, messageArray(13))
                 Call BuildExportData(messageArray)
             End If
 
             DataArray = Nothing
             updateForm = Nothing
-            '' build prompt
-            '' new contact info
-            'prompt = "Contact exists!" & vbNewLine & vbNewLine & "New information:" & vbNewLine &
-            '    "Name: " & messageArray(1) & " " & messageArray(2) & vbNewLine &
-            '    "Email: " & messageArray(3) & vbNewLine &
-            '    "Phone: " & messageArray(4) & vbNewLine &
-            '    "Company: " & messageArray(6) & vbNewLine &
-            '    "Job Title: " & messageArray(7) & vbNewLine &
-            '    "Address: " & messageArray(8) & vbNewLine & messageArray(9) & ", " &
-            '    StateAbbreviation(messageArray(10)) & " " & messageArray(11) & vbNewLine &
-            '    messageArray(12) & vbNewLine & vbNewLine
-
-            '' old contact info
-            'prompt = prompt & "Old information:" & vbNewLine &
-            '    "Name: " & Contact.FullName & vbNewLine &
-            '    "Email: " & Contact.Email1Address & vbNewLine &
-            '    "Phone: " & Contact.BusinessTelephoneNumber & vbNewLine &
-            '    "Company: " & Contact.CompanyName & vbNewLine &
-            '    "Job Title: " & Contact.JobTitle & vbNewLine &
-            '    "Address: " & Contact.BusinessAddress & vbNewLine &
-            '    Contact.BusinessAddressCountry & vbNewLine &
-            '    "Notes: " & Contact.Body & vbNewLine &
-            '    vbNewLine & "Update with new information?"
-
-            'If MsgBox(prompt, vbQuestion Or vbYesNo, "Update?") = vbNo Then
-            '    Contact = Nothing
-            'End If
-
-            '' create or update contact if contact object has been set
-            'Call SaveContact(Contact, messageArray)
         Next
 
         ' if no contacts are found, then create a new contact without prompting the user
@@ -494,35 +465,37 @@ ErrorHandler:
                 .Categories = "Correspondence"
             End With
 
-            If Contact.Body = "" Then
-                Contact.Body = DateTime.Today.Year & vbNewLine & "Position: " & messageArray(13)
-            Else
-                Contact.Body = Contact.Body & vbNewLine & vbNewLine & DateTime.Today.Year &
-                    vbNewLine & "Position: " & messageArray(13)
-                'Dim prompt As String = "Append notes?" & vbNewLine & vbNewLine & "Notes:" & vbNewLine &
-                '    Contact.Body & vbNewLine & vbNewLine & "Append with:" & vbNewLine &
-                '    "Position: " & messageArray(13)
+            ' save contact data in default contacts folder
+            Contact.Save()
 
-                'If MsgBox(prompt, vbQuestion Or vbYesNo) = vbYes Then
-                '    Contact.Body = Contact.Body & vbNewLine & vbNewLine & DateTime.Today.Year &
-                '        vbNewLine & "Position: " & messageArray(13)
-                'End If
-            End If
+            ' append notes
+            Call AppendNotes(Contact, messageArray(13))
 
             ' build export data
             Call BuildExportData(messageArray)
-
-            ' save contact data in default contacts folder
-            Contact.Save()
         End If
+    End Sub
+
+    ' appends notes of a contact
+    Private Sub AppendNotes(Contact As Outlook.ContactItem, note As String)
+        ' create or append notes
+        If Contact.Body = "" Then
+            Contact.Body = DateTime.Today.Year & vbNewLine & "Position: " & note
+        Else
+            Contact.Body = Contact.Body & vbNewLine & vbNewLine & DateTime.Today.Year &
+                vbNewLine & "Position: " & note
+        End If
+
+        ' save contact data in default contacts folder
+        Contact.Save()
     End Sub
 
     ' creates a list of objects containing contact data
     ' submits it to Module1.AppendExportData() to become of data payload
     Private Sub BuildExportData(messageArray() As String)
         Dim dataBlock As List(Of Object) = New List(Of Object) From {
-            messageArray(2),
             messageArray(1),
+            messageArray(2),
             messageArray(7),
             messageArray(6),
             messageArray(9),
