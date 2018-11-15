@@ -23,6 +23,11 @@ Public Class MainForm
         errorHandler.Upload()
     End Sub
 
+    Private Sub Settings_Click(sender As Object, e As EventArgs) Handles Settings.Click
+        Dim settings As Settings = New Settings()
+        settings.ShowDialog()
+    End Sub
+
     Private Sub Quit_Click(sender As Object, e As EventArgs) Handles Quit.Click
         Close()
     End Sub

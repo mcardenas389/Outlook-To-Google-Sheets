@@ -82,9 +82,6 @@
         TableLayout.Controls.Add(title2, 1, 0)
 
         For x = LBound(DataArray, 1) To UBound(DataArray, 1) - 1
-            'TableLayout.ColumnCount += 1
-            'TableLayout.ColumnStyles.Add(New ColumnStyle(SizeType.AutoSize))
-
             For y = LBound(DataArray, 2) To UBound(DataArray, 2)
                 If y = LBound(DataArray, 2) Then
                     TableLayout.RowCount += 1
@@ -105,7 +102,7 @@
         Next
     End Sub
 
-    Private Sub Update_Click(sender As Object, e As EventArgs) Handles Update.Click
+    Private Sub Updates_Click(sender As Object, e As EventArgs) Handles Updates.Click
         result = Results.Updates
         Close()
     End Sub
