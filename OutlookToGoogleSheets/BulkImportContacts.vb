@@ -480,6 +480,7 @@ ErrorHandler:
                 vbNewLine & "Position: " & note
         End If
 
+        ' save contact
         Contact.Save()
     End Sub
 
