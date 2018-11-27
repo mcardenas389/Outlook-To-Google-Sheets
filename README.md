@@ -3,6 +3,7 @@
 1. [Disclaimer](#disclaimer)
 2. [Installation](#installation)
 3. [Documentation](#documentation)
+4. [Version History](#version-history)
 
 ## Disclaimer
 
@@ -61,3 +62,14 @@ Here you can change a few settings of the application.
 
 **Quit**<br />
 This will close out the application. If you have neglected to upload your information, you will have to run the macro again on start-up. This application does not save the information you want to send to Google Sheets.
+
+## Version History
+**v1.0.1**<br />
+
+* Changed the order the columns are written in. Now First Name comes first.
+
+* Fixed it so that the notes for the contact are updated for both Update and Submit options.
+
+**v1.0**<br />
+
+* Initial release.
