@@ -2,15 +2,15 @@
 ' ErrorHandler.vb
 ' Created by Michael Cardenas ©2018
 ' 
-' This class handles some of the exceptions that may be thrown by the
+' This module handles some of the exceptions that may be thrown by the
 ' other classes that it calls.
 '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 
-Public Class ErrorHandler
+Module ErrorHandler
     Private bulkImport As BulkImportContacts
 
     ' constructor
-    Public Sub New()
+    Sub New()
         bulkImport = New BulkImportContacts()
     End Sub
 
@@ -43,4 +43,4 @@ Public Class ErrorHandler
             MsgBox(ex.Message, vbInformation, "Warning!")
         End Try
     End Sub
-End Class
+End Module

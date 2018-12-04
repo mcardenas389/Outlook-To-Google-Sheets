@@ -31,6 +31,8 @@ Partial Class Settings
         Me.TextBox3 = New System.Windows.Forms.TextBox()
         Me.Cancel = New System.Windows.Forms.Button()
         Me.Save = New System.Windows.Forms.Button()
+        Me.Label4 = New System.Windows.Forms.Label()
+        Me.TextBox4 = New System.Windows.Forms.TextBox()
         Me.SuspendLayout()
         '
         'Label1
@@ -83,7 +85,8 @@ Partial Class Settings
         '
         'Cancel
         '
-        Me.Cancel.Location = New System.Drawing.Point(153, 94)
+        Me.Cancel.Anchor = System.Windows.Forms.AnchorStyles.Bottom
+        Me.Cancel.Location = New System.Drawing.Point(153, 136)
         Me.Cancel.Name = "Cancel"
         Me.Cancel.Size = New System.Drawing.Size(75, 23)
         Me.Cancel.TabIndex = 6
@@ -92,18 +95,37 @@ Partial Class Settings
         '
         'Save
         '
-        Me.Save.Location = New System.Drawing.Point(51, 94)
+        Me.Save.Anchor = System.Windows.Forms.AnchorStyles.Bottom
+        Me.Save.Location = New System.Drawing.Point(51, 136)
         Me.Save.Name = "Save"
         Me.Save.Size = New System.Drawing.Size(75, 23)
         Me.Save.TabIndex = 7
         Me.Save.Text = "&Save"
         Me.Save.UseVisualStyleBackColor = True
         '
+        'Label4
+        '
+        Me.Label4.AutoSize = True
+        Me.Label4.Location = New System.Drawing.Point(12, 92)
+        Me.Label4.Name = "Label4"
+        Me.Label4.Size = New System.Drawing.Size(60, 13)
+        Me.Label4.TabIndex = 8
+        Me.Label4.Text = "Event Year"
+        '
+        'TextBox4
+        '
+        Me.TextBox4.Location = New System.Drawing.Point(84, 89)
+        Me.TextBox4.Name = "TextBox4"
+        Me.TextBox4.Size = New System.Drawing.Size(168, 20)
+        Me.TextBox4.TabIndex = 9
+        '
         'Settings
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(266, 128)
+        Me.ClientSize = New System.Drawing.Size(266, 170)
+        Me.Controls.Add(Me.TextBox4)
+        Me.Controls.Add(Me.Label4)
         Me.Controls.Add(Me.Save)
         Me.Controls.Add(Me.Cancel)
         Me.Controls.Add(Me.TextBox3)
@@ -130,4 +152,6 @@ Partial Class Settings
     Friend WithEvents TextBox3 As TextBox
     Friend WithEvents Cancel As Button
     Friend WithEvents Save As Button
+    Friend WithEvents Label4 As Label
+    Friend WithEvents TextBox4 As TextBox
 End Class

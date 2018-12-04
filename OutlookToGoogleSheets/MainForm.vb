@@ -1,5 +1,5 @@
 ﻿'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-' Outlook to Google Sheets v1.0
+' Outlook to Google Sheets v1.0.2
 ' Created by Michael Cardenas ©2018
 ' 
 ' This application is used to gather contact information from e-mails 
@@ -9,18 +9,16 @@
 '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 
 Public Class MainForm
-    Private errorHandler As ErrorHandler = New ErrorHandler()
-
     Private Sub RunAndUpload_Click(sender As Object, e As EventArgs) Handles RunAndUpload.Click
-        errorHandler.RunAndUpload()
+        ErrorHandler.RunAndUpload()
     End Sub
 
     Private Sub RunMacro_Click(sender As Object, e As EventArgs) Handles RunMacro.Click
-        errorHandler.RunMacro()
+        ErrorHandler.RunMacro()
     End Sub
 
     Private Sub Upload_Click(sender As Object, e As EventArgs) Handles Upload.Click
-        errorHandler.Upload()
+        ErrorHandler.Upload()
     End Sub
 
     Private Sub Settings_Click(sender As Object, e As EventArgs) Handles Settings.Click

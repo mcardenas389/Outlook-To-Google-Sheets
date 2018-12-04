@@ -3,12 +3,14 @@
         TextBox1.Text = My.Settings.URL
         TextBox2.Text = My.Settings.SheetName
         TextBox3.Text = My.Settings.Column
+        TextBox4.Text = My.Settings.EventYear
     End Sub
 
     Private Sub Save_Click(sender As Object, e As EventArgs) Handles Save.Click
         My.Settings.URL = TextBox1.Text
         My.Settings.SheetName = TextBox2.Text
         My.Settings.Column = TextBox3.Text
+        My.Settings.EventYear = TextBox4.Text
         Close()
     End Sub
 

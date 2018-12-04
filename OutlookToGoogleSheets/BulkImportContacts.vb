@@ -471,21 +471,21 @@ ErrorHandler:
         End If
     End Sub
 
-    ' creates or appends current notes
-    Private Sub AppendNotes(Contact As Outlook.ContactItem, note As String)
+    ' creates or appends current notes body
+    Private Sub AppendNotes(Contact As Outlook.ContactItem, position As String)
+        Dim newNote As String = My.Settings.EventYear & "-Position: " & position
+
         If Contact.Body = "" Then
-            Contact.Body = DateTime.Today.Year & vbNewLine & "Position: " & note
+            Contact.Body = newNote
         Else
-            Contact.Body = Contact.Body & vbNewLine & vbNewLine & DateTime.Today.Year &
-                vbNewLine & "Position: " & note
+            Contact.Body = newNote & vbNewLine & Contact.Body
         End If
 
-        ' save contact
+        ' save changes
         Contact.Save()
     End Sub
 
     ' creates a list of objects containing contact data
-    ' submits it to Module1.AppendExportData() to become of data payload
     Private Sub BuildExportData(messageArray() As String)
         Dim dataBlock As List(Of Object) = New List(Of Object) From {
             messageArray(1),

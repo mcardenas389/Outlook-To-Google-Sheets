@@ -3,13 +3,16 @@
   <Profiles />
   <Settings>
     <Setting Name="URL" Type="System.String" Scope="User">
-      <Value Profile="(Default)">1PaS8cxkbd5o4R5n05Ye5rdaBRFfvpXZX5loYesCnkes</Value>
+      <Value Profile="(Default)" />
     </Setting>
     <Setting Name="SheetName" Type="System.String" Scope="User">
       <Value Profile="(Default)">LogSheet</Value>
     </Setting>
     <Setting Name="Column" Type="System.String" Scope="User">
       <Value Profile="(Default)">C</Value>
+    </Setting>
+    <Setting Name="EventYear" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
     </Setting>
   </Settings>
 </SettingsFile>
