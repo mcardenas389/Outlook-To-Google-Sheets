@@ -64,6 +64,12 @@ Here you can change a few settings of the application.
 This will close out the application. If you have neglected to upload your information, you will have to run the macro again on start-up. This application does not save the information you want to send to Google Sheets.
 
 ## Version History
+**v1.0.2**<br />
+
+* Fixed it so that notes are appended from the top instead of at the bottom.
+
+* Added a field for the event year in the settings, so it can be updated manually.
+
 **v1.0.1**<br />
 
 * Changed the order the columns are written in. Now First Name comes first.
