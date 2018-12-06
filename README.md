@@ -56,9 +56,10 @@ This is a purely autonamous operation and doesn't require any user input. It wil
 
 Here you can change a few settings of the application.
 
-1. **Sheet ID** - this can be located within the URL of your Google Sheets spreadsheet. It is a long sequence of random alphanumeric characters. Just copy that and paste it here should you change your spreadsheet in the future.
+1. **Sheet ID** - this can be located within the URL of your Google Sheets spreadsheet. It is a long sequence of random alphanumeric characters. Just copy that and paste it here whenever you decide to change your spreadsheet.
 2. **Sheet Name** - this is the name of the sheet within your spreadsheet you want to store the information in.
-3. **Column** - this is where you'll start writing information. The information is always written on a single row.
+3. **Column** - this is the column where you'll start writing information. The information is always written on a single row.
+4. **Event Year** - this is where you input the year the event takes place. This will update the year that is added to the notes.
 
 **Quit**<br />
 This will close out the application. If you have neglected to upload your information, you will have to run the macro again on start-up. This application does not save the information you want to send to Google Sheets.
